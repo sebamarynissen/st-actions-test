@@ -29,6 +29,12 @@ jobs:
               target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
             });
 
+      - name: Lint
+        id: lint
+        run: |
+          echo "Failure"
+          exit 1
+
       - uses: actions/github-script@v7
         with:
           script: |
@@ -36,7 +42,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: '${{ github.event.client_payload.sha }}',
-              state: 'success',
+              state: '${{ steps.lint.outcome }}',
               context: 'repository_dispatch',
               description: 'Lint successful',
               target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
