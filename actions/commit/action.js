@@ -35,14 +35,14 @@ async function handleResult(result) {
 	// If no PR existed yet, then we have to push the branch. Otherwise it will 
 	// be handled for us.
 	console.log('Creating new PR on GitHub');
-	({ data: pr } = await octokit.pulls.create({
+	let { data: pr } = await octokit.pulls.create({
 		owner,
 		repo,
 		base: 'main',
 		title: result.title,
 		head: result.branch,
 		body: result.body,
-	}));
+	});
 
 	console.log('Adding labels');
 	octokit.issues.addLabels({
