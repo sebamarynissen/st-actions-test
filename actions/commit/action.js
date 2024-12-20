@@ -124,6 +124,6 @@ const randomHex = Math.random().toString(16).slice(2);
 
 await create([{
 	branch: `package/${randomHex}`,
-	title: 'Some PR',
+	title: `PR ${new Date().toISOString()}`,
 	files: [],
 }]);

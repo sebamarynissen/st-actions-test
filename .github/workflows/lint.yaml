@@ -47,4 +47,6 @@ jobs:
               description: 'Lint successful',
               target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
             });
-      - run: echo "Going to merge the PR now"
+
+      - name: Merge PR
+        run: gh pr merge ${{ github.event.client_payload.pr }}
