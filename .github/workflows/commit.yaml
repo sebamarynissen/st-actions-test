@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pr: [23]
+        pr: ${{ fromJson(needs.commit.outputs.prs) }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
