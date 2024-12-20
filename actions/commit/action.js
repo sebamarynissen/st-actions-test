@@ -126,7 +126,7 @@ export default async function create(results) {
 		});
 		output.push(pr);
 	}
-	core.setOutput('prs', JSON.stringify(output));
+	core.setOutput('prs', output);
 
 }
 
