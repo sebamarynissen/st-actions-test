@@ -6,6 +6,7 @@ on:
 jobs:
   commit:
     runs-on: ubuntu-latest
+    permissions: write-all
     env:
       GITHUB_OWNER: sebamarynissen
       GITHUB_REPO: st-actions-test
