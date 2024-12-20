@@ -29,6 +29,7 @@ jobs:
               target_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`
             });
 
+      - uses: actions/checkout@v4
       - name: Lint
         id: lint
         run: |
