@@ -6,6 +6,10 @@ on:
 jobs:
   commit:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_OWNER: sebamarynissen
+      GITHUB_REPO: st-actions-test
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
