@@ -7,6 +7,7 @@ jobs:
   commit:
     runs-on: ubuntu-latest
     permissions: write-all
+    outputs: ${{ steps.commit.outputs.prs }}
     env:
       GITHUB_OWNER: sebamarynissen
       GITHUB_REPO: st-actions-test
@@ -19,7 +20,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
       - uses: actions/setup-node@v4
       - run: npm ci
-      - uses: ./actions/commit
+      - name: Create & update PRs
+        id: commit
+        uses: ./actions/commit
 
   lint:
     needs: commit
