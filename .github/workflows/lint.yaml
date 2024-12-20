@@ -33,7 +33,8 @@ jobs:
       - name: Lint
         id: lint
         run: |
-          echo "Success"
+          echo "Failure"
+          exit 1
 
       - uses: actions/github-script@v7
         if: always()
