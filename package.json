@@ -11,6 +11,7 @@
   "description": "",
   "type": "module",
   "dependencies": {
+    "@actions/core": "^1.11.1",
     "@octokit/rest": "^21.0.2",
     "simple-git": "^3.27.0"
   }

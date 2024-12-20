@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import simpleGit from 'simple-git';
+import core from '@actions/core';
 import { Octokit } from '@octokit/rest';
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 const baseDir = process.cwd();
@@ -55,21 +56,27 @@ async function handleResult(result) {
 	// Trigger the lint action on the PR with a repository dispatch. We can't 
 	// rely on the normal actions workflow because GitHub does not trigger 
 	// actions on commits made by a bot to avoid infinite loops apparently.
-	await octokit.repos.createDispatchEvent({
-		owner,
-		repo,
-		event_type: 'lint',
-		client_payload: {
-			ref: `refs/pull/${pr.number}/merge`,
-			sha: pr.head.sha,
-			pr: pr.number,
-		},
-	});
+	// await octokit.repos.createDispatchEvent({
+	// 	owner,
+	// 	repo,
+	// 	event_type: 'lint',
+	// 	client_payload: {
+	// 		ref: `refs/pull/${pr.number}/merge`,
+	// 		sha: pr.head.sha,
+	// 		pr: pr.number,
+	// 	},
+	// });
 
 	// Cool, now delete the branch again.
 	await git.checkout('main');
 	await git.deleteLocalBranch(result.branch, true);
 	console.log(`Handled ${result.title}`);
+
+	return {
+		ref: `refs/pull/${pr.number}/merge`,
+		number: pr.number,
+		sha: pr.head.sha,
+	};
 
 }
 
@@ -111,12 +118,15 @@ export default async function create(results) {
 	});
 
 	// Create PR's and update branches for every result.
+	let output = [];
 	for (let result of results) {
-		await handleResult({
+		let pr = await handleResult({
 			pr: prs.find(pr => pr.head.ref === result.branch),
 			...result,
 		});
+		output.push(pr);
 	}
+	core.setOutput('prs', output);
 
 }
 

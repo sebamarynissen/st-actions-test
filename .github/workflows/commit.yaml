@@ -20,3 +20,17 @@ jobs:
       - uses: actions/setup-node@v4
       - run: npm ci
       - uses: ./actions/commit
+
+  lint:
+    needs: commit
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pr: ${{ fromJson(needs.commit.output.prs) }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.pr.ref }}
+      - name: Run lint
+        run: echo "Running linter"
