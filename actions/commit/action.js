@@ -120,8 +120,10 @@ export default async function create(results) {
 
 }
 
+const randomHex = Math.random().toString(16).slice(2);
+
 await create([{
-	branch: 'package/foo',
+	branch: `package/${randomHex}`,
 	title: 'Some PR',
 	files: [],
 }]);
