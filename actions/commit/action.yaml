@@ -1,0 +1,6 @@
+name: commit
+description: Commits someting to the repo
+
+runs:
+  using: 'node20'
+  main: 'action.js'
