@@ -60,7 +60,7 @@ for (let pkg of result.packages) {
 	let pr = await createPr(pkg, prs);
 
 	// Once the PR has been updated, we'll run the linting script.
-	let result = cp.spawnSync('python', ['lint/src/lint.py', '../../src/yaml'], {
+	let result = cp.spawnSync('python', ['lint/src/lint.py', 'src/yaml'], {
 		cwd: process.env.GITHUB_WORKSPACE,
 	});
 	console.log(result.stdout+'');
