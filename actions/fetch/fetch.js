@@ -17,6 +17,8 @@ info:
 
 dependencies:
   - memo:submenus-dll
+assets:
+  - assetId: smf-16-everseasonal
 
 ---
 assetId: smf-16-everseasonal
