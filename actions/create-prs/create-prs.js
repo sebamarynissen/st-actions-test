@@ -15,7 +15,7 @@ console.log(context.repo);
 
 // First of all we will create a new file called `LAST_RUN` where we'll commit 
 // the timestamp of the last run.
-const result = JSON.parse(core.getInput('fetch-result'));
+// const result = JSON.parse(core.getInput('fetch-result'));
 await fs.promises.writeFile(path.join(cwd, 'LAST_RUN'), result.timestamp);
 await git.add('LAST_RUN');
 const message = result.timestamp.slice(0, 19) + 'Z';
@@ -67,18 +67,18 @@ async function createPr(pkg, prs) {
 	// the creator of the package. This means we have to fetch the branch from 
 	// the server.
 	if (pr) {
-		let spinner = ora(`Checking out origin/${result.branch}`);
+		let spinner = ora(`Checking out origin/${branch}`);
 		await git.fetch();
-		await git.checkoutBranch(result.branch, `origin/${result.branch}`);
+		await git.checkoutBranch(branch, `origin/${branch}`);
 		spinner.succeed();
 	} else {
-		let spinner = ora(`Creating new branch ${result.branch}`);
-		await git.checkoutLocalBranch(result.branch);
+		let spinner = ora(`Creating new branch ${branch}`);
+		await git.checkoutLocalBranch(branch);
 		spinner.succeed();
 	}
 
 	// Re-apply the changes from this package.
-	for (let file of result.files) {
+	for (let file of pkg.files) {
 		let dirname = path.dirname(file.path);
 		await fs.promises.mkdir(dirname, { recursive: true });
 		await fs.promises.writeFile(file.path, file.contents);
@@ -86,14 +86,14 @@ async function createPr(pkg, prs) {
 
 	// Add all the modified files & then commit.
 	let spinner = ora('Committing files').start();
-	for (let file of result.files) {
+	for (let file of pkg.files) {
 		await git.add(file.name);
 	}
-	await git.commit(result.title, { '--allow-empty': true });
+	await git.commit(pkg.title, { '--allow-empty': true });
 	let sha = await git.revparse(['HEAD']);
 	spinner.succeed();
-	spinner = ora(`Pushing ${result.branch} to origin`).start();
-	await git.push('origin', result.branch);
+	spinner = ora(`Pushing ${branch} to origin`).start();
+	await git.push('origin', branch);
 	spinner.succeed();
 
 	// If no PR existed yet, then we have to push the branch. Otherwise it will 
@@ -103,9 +103,9 @@ async function createPr(pkg, prs) {
 		({ data: pr } = await octokit.rest.pulls.create({
 			...context.repo,
 			base: 'main',
-			title: result.title,
-			head: result.branch,
-			body: result.body,
+			title: pkg.title,
+			head: branch,
+			body: pkg.body,
 		}));
 		spinner.succeed();
 
@@ -120,11 +120,12 @@ async function createPr(pkg, prs) {
 
 	// Cool, now delete the branch again.
 	await git.checkout('main');
-	await git.deleteLocalBranch(result.branch, true);
-	ora(`Handled ${result.title}`).succeed();
+	await git.deleteLocalBranch(branch, true);
+	ora(`Handled ${pkg.title}`).succeed();
 
 	// Return the pr info so that our action can set it as output.
 	return {
+		branch,
 		ref: `refs/pull/${pr.number}/merge`,
 		number: pr.number,
 		sha,
