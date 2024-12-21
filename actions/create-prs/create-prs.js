@@ -154,8 +154,12 @@ async function createPr(pkg, prs) {
 			...context.repo,
 			sha,
 			state: 'success',
-			description: 'Linting succeeded.',
+			description: 'Metadata validated',
 			target_url,
+		});
+		await octokit.rest.pulls.merge({
+			...context.repo,
+			pull_number: pr.number,
 		});
 	} else {
 		core.error(result.stdout+'');
@@ -163,7 +167,7 @@ async function createPr(pkg, prs) {
 			...context.repo,
 			sha,
 			state: 'failure',
-			description: 'Linting failed!',
+			description: 'Invalid metadata',
 			target_url,
 		});
 
