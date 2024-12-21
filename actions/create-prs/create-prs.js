@@ -5,6 +5,7 @@ import ora from 'ora';
 import core from '@actions/core';
 import github from '@actions/github';
 import { simpleGit } from 'simple-git';
+import { parseAllDocuments } from 'yaml';
 
 // Setup our git client & octokit.
 const cwd = process.env.GITHUB_WORKSPACE ?? process.env.cwd();
@@ -19,7 +20,7 @@ const result = JSON.parse(core.getInput('fetch-result'));
 await fs.promises.writeFile(path.join(cwd, 'LAST_RUN'), result.timestamp);
 await git.add('LAST_RUN');
 const message = result.timestamp.slice(0, 19) + 'Z';
-await git.commit(message);
+await git.commit(message, { '--allow-empty': true });
 await git.push('origin', 'main');
 
 // Before we can generate our PRs, we need to make sure the repository is in a 
@@ -78,18 +79,33 @@ async function createPr(pkg, prs) {
 	}
 
 	// Re-apply the changes from this package.
+	let docs = [];
 	for (let file of pkg.files) {
 		let dirname = path.dirname(file.path);
 		await fs.promises.mkdir(dirname, { recursive: true });
 		await fs.promises.writeFile(file.path, file.contents);
+		docs.push(...parseAllDocuments(String(file.contents)));
 	}
+	let yaml = docs.map(doc => doc.toJSON());
+	let main;
+	let { packages, assets } = Object.groupBy(yaml, json => {
+		if (json.group) {
+			if (`${json.group}:${json.name}` === pkg.id) {
+				main = json;
+			}
+		}
+		return json.group ? 'packages' : 'assets';
+	});
+	let title = `${pkg.id}@${main.version}`;
+	let body = generateBody({ packages, assets, main });
+	console.log(title, body);
 
 	// Add all the modified files & then commit.
 	let spinner = ora('Committing files').start();
 	for (let file of pkg.files) {
 		await git.add(file.name);
 	}
-	await git.commit(pkg.title, { '--allow-empty': true });
+	await git.commit(title, { '--allow-empty': true });
 	let sha = await git.revparse(['HEAD']);
 	spinner.succeed();
 	spinner = ora(`Pushing ${branch} to origin`).start();
@@ -103,9 +119,9 @@ async function createPr(pkg, prs) {
 		({ data: pr } = await octokit.rest.pulls.create({
 			...context.repo,
 			base: 'main',
-			title: pkg.title,
+			title,
 			head: branch,
-			body: pkg.body,
+			body,
 		}));
 		spinner.succeed();
 
@@ -121,7 +137,7 @@ async function createPr(pkg, prs) {
 	// Cool, now delete the branch again.
 	await git.checkout('main');
 	await git.deleteLocalBranch(branch, true);
-	ora(`Handled ${pkg.title}`).succeed();
+	ora(`Handled ${title}`).succeed();
 
 	// Return the pr info so that our action can set it as output.
 	return {
@@ -131,4 +147,30 @@ async function createPr(pkg, prs) {
 		sha,
 	};
 
+}
+
+// # generateBody(opts)
+// Generates the PR body based on the packages we've added.
+function generateBody({ packages, assets, main }) {
+	let body = [];
+	let [image] = main.info?.images ?? [];
+	body.push(`# ${main.info?.summary}\n`);
+	if (image) {
+		body.push(`![${main.info?.summary}](${image})\n`);
+	}
+	body.push('## Packages\n');
+	body.push(...packages.map(pkg => {
+		let line = `${pkg.group}:${pkg.name}`;
+		if (pkg?.info.website) {
+			line = `[${line}](${pkg.info.website})`;
+		}
+		return `- ${line}`;
+	}));
+	body.push('');
+	body.push('## Assets\n');
+	body.push(...assets.map(asset => {
+		let { assetId, url } = asset;
+		return `- [${assetId}](${url})`;
+	}));
+	return body.join('\n');
 }
