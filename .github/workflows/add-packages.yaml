@@ -18,6 +18,8 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
       - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
       - run: npm ci
       - name: Fetch updated packages from Simtropolis
         id: fetch

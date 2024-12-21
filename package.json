@@ -6,6 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "workflow": "gh workflow run add-packages.yaml"
   },
+  "engines": {
+    "node": "^22.11"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
