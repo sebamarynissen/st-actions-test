@@ -1,6 +1,11 @@
 name: create-prs
 description: Creates the relevant PRs
 
+inputs:
+  fetch-result:
+    required: true
+    description: The result of a fetch operation on Simtropolis
+
 runs:
   using: 'node20'
   main: 'create-prs.js'

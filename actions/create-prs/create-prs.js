@@ -2,14 +2,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
-import { parseAllDocuments } from 'yaml';
 import core from '@actions/core';
 import github from '@actions/github';
 import { simpleGit } from 'simple-git';
 
 // Setup our git client & octokit.
 const cwd = process.env.GITHUB_WORKSPACE ?? process.env.cwd();
-const gir = simpleGit(simpleGit);
+const git = simpleGit(simpleGit);
 
 // First of all we will create a new file called `LAST_RUN` where we'll commit 
 // the timestamp of the last run.
