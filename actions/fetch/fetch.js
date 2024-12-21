@@ -11,13 +11,12 @@ await fs.promises.writeFile(file, `
 group: smf-16
 name: everseasonal
 version: "1.0.2"
-# subfolder: 150-mods
+subfolder: 150-mods
 info:
   summary: Everseasonal
 
 dependencies:
   - memo:submenus-dll
-  - doesnt:exist
 
 ---
 assetId: smf-16-everseasonal
