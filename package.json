@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "gh run add-packages.yaml"
+    "workflow": "gh workflow run add-packages.yaml"
   },
   "keywords": [],
   "author": "",
