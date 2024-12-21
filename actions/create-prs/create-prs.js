@@ -240,7 +240,7 @@ function generateBody({ packages, assets, main }) {
 	body.push('## Packages\n');
 	body.push(...packages.map(pkg => {
 		let line = `${pkg.group}:${pkg.name}`;
-		if (pkg?.info.website) {
+		if (pkg?.info?.website) {
 			line = `[${line}](${pkg.info.website})`;
 		}
 		return `- ${line}`;
