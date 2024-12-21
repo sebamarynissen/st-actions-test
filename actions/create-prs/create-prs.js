@@ -15,7 +15,7 @@ const git = simpleGit(simpleGit);
 const result = JSON.parse(core.getInput('fetch-result'));
 await fs.promises.writeFile(path.join(cwd, 'LAST_RUN'), result.timestamp);
 await git.add('LAST_RUN');
-const message = result.timestamp.sice(0, 19) + 'Z';
+const message = result.timestamp.slice(0, 19) + 'Z';
 await git.commit(message);
 await git.push('origin', 'main');
 
