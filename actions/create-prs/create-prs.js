@@ -213,7 +213,7 @@ async function createPr(pkg, prs) {
 		await octokit.rest.issues.createComment({
 			...context.repo,
 			issue_number: pr.number,
-			body: `⚠️ There is an issue with the metadata for this package:\n\n\`\`\`${message}\n\`\`\``,
+			body: `⚠️ There is an issue with the metadata for this package:\n\n\`\`\`\n${message}\n\`\`\``,
 		});
 
 	}
