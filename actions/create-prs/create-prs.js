@@ -183,6 +183,7 @@ async function createPr(pkg, prs) {
 	let result = cp.spawnSync('python', ['lint/src/lint.py', 'src/yaml'], {
 		cwd: process.env.GITHUB_WORKSPACE,
 	});
+	console.log(result);
 	if (result.status === 0) {
 		await octokit.rest.repos.createCommitStatus({
 			...context.repo,
