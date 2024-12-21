@@ -97,9 +97,8 @@ async function createPr(pkg, prs) {
 	// be handled for us.
 	if (!pr) {
 		let spinner = ora('Creating new PR on GitHub').start();
-		({ data: pr } = await octokit.pulls.create({
-			owner,
-			repo,
+		({ data: pr } = await github.rest.pulls.create({
+			...context.github,
 			base: 'main',
 			title: result.title,
 			head: result.branch,
@@ -108,9 +107,8 @@ async function createPr(pkg, prs) {
 		spinner.succeed();
 
 		spinner = ora('Adding labels').start();
-		octokit.issues.addLabels({
-			owner,
-			repo,
+		github.rest.issues.addLabels({
+			...context.github,
 			issue_number: pr.number,
 			labels: ['package'],
 		});
