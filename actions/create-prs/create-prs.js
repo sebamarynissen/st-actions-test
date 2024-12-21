@@ -57,7 +57,7 @@ spinner.succeed();
 
 // Create the PRs and update the branches for each result.
 for (let pkg of result.packages) {
-	let pr = await createPr(pkg, prs);
+	await createPr(pkg, prs);
 }
 
 // # createPr(pkg)
@@ -135,11 +135,46 @@ async function createPr(pkg, prs) {
 		spinner.succeed();
 	}
 
+	// Before we start the linting, let's create a commit status of "pending".
+	let target_url = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+	await octokit.rest.repos.createCommitStatus({
+		...context.repo,
+		sha,
+		state: 'pending',
+		description: 'Running lint...',
+		target_url,
+	});
+
 	// Once the PR has been updated, we'll run the linting script.
 	let result = cp.spawnSync('python', ['lint/src/lint.py', 'src/yaml'], {
 		cwd: process.env.GITHUB_WORKSPACE,
 	});
-	console.log(result.stdout+'');
+	if (result.status === 0) {
+		await octokit.rest.repos.createCommitStatus({
+			...context.repo,
+			sha,
+			state: 'success',
+			description: 'Linting succeeded.',
+			target_url,
+		});
+	} else {
+		core.error(result.stdout+'');
+		await octokit.rest.repos.createCommitStatus({
+			...context.repo,
+			sha,
+			state: 'pending',
+			description: 'Linting failed!',
+			target_url,
+		});
+
+		// Make a comment in the PR with the linting output.
+		await octokit.rest.issues.createComment({
+			...context.repo,
+			issue_number: pr.number,
+			body: `\`\`\`\n${result.stdout.output}\n\`\`\``,
+		});
+
+	}
 
 	// Cool, now delete the branch again.
 	await git.checkout('main');
