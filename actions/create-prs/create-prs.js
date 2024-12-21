@@ -13,7 +13,6 @@ const cwd = process.env.GITHUB_WORKSPACE ?? process.env.cwd();
 const git = simpleGit(simpleGit);
 const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 const { context } = github;
-console.log(context.repo);
 
 // First of all we will create a new file called `LAST_RUN` where we'll commit 
 // the timestamp of the last run.
@@ -45,6 +44,9 @@ for (let pkg of result.packages) {
 // Reset the repository to a clean state again.
 await git.reset({ '--hard': true });
 
+console.log('logging git status');
+console.log(await git.status());
+
 // Fetch all open PRs from GitHub so that we can figure out which files are 
 // updates of existing, open PRs.
 let spinner = ora('Fetching open pull requests from GitHub').start();
@@ -57,6 +59,9 @@ spinner.succeed();
 // Create the PRs and update the branches for each result.
 for (let pkg of result.packages) {
 	let pr = await createPr(pkg, prs);
+
+	// Once the PR has been updated, we'll run the linting script.
+
 }
 
 // # createPr(pkg)
