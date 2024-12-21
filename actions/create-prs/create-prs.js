@@ -97,9 +97,8 @@ async function createPr(pkg, prs) {
 		}
 		return json.group ? 'packages' : 'assets';
 	});
-	let title = `${pkg.id}@${main.version}`;
+	let title = `\`${pkg.id}@${main.version}\``;
 	let body = generateBody({ packages, assets, main });
-	console.log(title, body);
 
 	// Add all the modified files & then commit.
 	let spinner = ora('Committing files').start();
