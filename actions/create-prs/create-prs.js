@@ -43,7 +43,7 @@ for (let pkg of result.packages) {
 
 // Reset the repository to a clean state again.
 await git.reset({ '--hard': true });
-await git.clean({ '-fd': true });
+await git.clean('f', { '-d': true });
 
 console.log('logging git status');
 console.log(await git.status());
