@@ -7,6 +7,9 @@ jobs:
   add-packages:
     runs-on: ubuntu-latest
     permissions: write-all
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     env:
       GITHUB_OWNER: sebamarynissen
       GITHUB_REPO: st-actions-test
