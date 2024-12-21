@@ -15,7 +15,7 @@ console.log(context.repo);
 
 // First of all we will create a new file called `LAST_RUN` where we'll commit 
 // the timestamp of the last run.
-// const result = JSON.parse(core.getInput('fetch-result'));
+const result = JSON.parse(core.getInput('fetch-result'));
 await fs.promises.writeFile(path.join(cwd, 'LAST_RUN'), result.timestamp);
 await git.add('LAST_RUN');
 const message = result.timestamp.slice(0, 19) + 'Z';
