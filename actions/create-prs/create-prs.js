@@ -89,7 +89,7 @@ async function createPr(pkg, prs) {
 	}
 	let yaml = docs.map(doc => doc.toJSON());
 	let main;
-	let { packages, assets } = Object.groupBy(yaml, json => {
+	let { packages = [], assets = [] } = Object.groupBy(yaml, json => {
 		if (json.group) {
 			if (`${json.group}:${json.name}` === pkg.id) {
 				main = json;

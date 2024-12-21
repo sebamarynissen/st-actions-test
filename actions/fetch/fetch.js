@@ -17,6 +17,12 @@ info:
 
 dependencies:
   - memo:submenus-dll
+
+---
+assetId: smf-16-everseasonal
+version: "1.0.2"
+lastModified: "2024-12-21T:21:40:00Z"
+url: https://community.simtropolis.com/files/file/123-file/?do=download&r=456
 `);
 
 let result = {
