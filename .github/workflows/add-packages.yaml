@@ -1,4 +1,4 @@
-name: Fetch
+name: Add packages
 
 on:
   workflow_dispatch: #
@@ -24,6 +24,8 @@ jobs:
       - name: Fetch updated packages from Simtropolis
         id: fetch
         uses: ./actions/fetch
+      - name: Setup sc4pac
+        uses: ./actions/setup-sc4pac
       - name: Create & update PRs
         id: create-prs
         uses: ./actions/create-prs
