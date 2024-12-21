@@ -1,4 +1,5 @@
 // # create-prs.js
+import './polyfill.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
