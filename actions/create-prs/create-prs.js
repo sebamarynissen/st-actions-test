@@ -162,7 +162,7 @@ async function createPr(pkg, prs) {
 		await octokit.rest.repos.createCommitStatus({
 			...context.repo,
 			sha,
-			state: 'pending',
+			state: 'failure',
 			description: 'Linting failed!',
 			target_url,
 		});
@@ -171,7 +171,7 @@ async function createPr(pkg, prs) {
 		await octokit.rest.issues.createComment({
 			...context.repo,
 			issue_number: pr.number,
-			body: `\`\`\`\n${result.stdout.output}\n\`\`\``,
+			body: `There is an issue with the metadata for this package:\n\n\`\`\`${result.stdout}\n\`\`\``,
 		});
 
 	}
