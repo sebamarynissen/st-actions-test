@@ -2,6 +2,7 @@
 import './polyfill.js';
 import fs from 'node:fs';
 import path from 'node:path';
+import cp from 'node:child_process';
 import ora from 'ora';
 import core from '@actions/core';
 import github from '@actions/github';
@@ -62,6 +63,8 @@ for (let pkg of result.packages) {
 	let pr = await createPr(pkg, prs);
 
 	// Once the PR has been updated, we'll run the linting script.
+	let result = cp.spawnSync('python', ['lint/src/lint.py', 'src/yaml']);
+	console.log(result);
 
 }
 
