@@ -18,11 +18,11 @@ const { context } = github;
 // First of all we will create a new file called `LAST_RUN` where we'll commit 
 // the timestamp of the last run.
 const result = JSON.parse(core.getInput('fetch-result'));
-await fs.promises.writeFile(path.join(cwd, 'LAST_RUN'), result.timestamp);
-await git.add('LAST_RUN');
-const message = result.timestamp.slice(0, 19) + 'Z';
-await git.commit(message, { '--allow-empty': true });
-await git.push('origin', 'main');
+// await fs.promises.writeFile(path.join(cwd, 'LAST_RUN'), result.timestamp);
+// await git.add('LAST_RUN');
+// const message = result.timestamp.slice(0, 19) + 'Z';
+// await git.commit(message, { '--allow-empty': true });
+// await git.push('origin', 'main');
 
 // Before we can generate our PRs, we need to make sure the repository is in a 
 // clean state. That's because if we checkout an existing branch, it might 
