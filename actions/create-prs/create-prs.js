@@ -10,6 +10,8 @@ import { simpleGit } from 'simple-git';
 const cwd = process.env.GITHUB_WORKSPACE ?? process.env.cwd();
 const git = simpleGit(simpleGit);
 const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+const { context } = github;
+console.log(context.repo);
 
 // First of all we will create a new file called `LAST_RUN` where we'll commit 
 // the timestamp of the last run.
@@ -43,7 +45,6 @@ await git.reset({ '--hard': true });
 
 // Fetch all open PRs from GitHub so that we can figure out which files are 
 // updates of existing, open PRs.
-console.log(github.context);
 let spinner = ora('Fetching open pull requests from GitHub').start();
 const { data: prs } = await octokit.rest.pulls.list({
 	...github.context,
