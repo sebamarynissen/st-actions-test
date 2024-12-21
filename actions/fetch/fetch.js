@@ -14,21 +14,20 @@ async function make(file, contents) {
 await make('smf-16/everseasonal.yaml', `
 group: smf-16
 name: everseasonal
-version: "1.0.2"
+version: "1.0.3"
 subfolder: 150-mods
 info:
   summary: Everseasonal
 
 dependencies:
-  - memo:submenus-ddl
-  - doesnt:exist
+  - memo:submenus-dll
 
 assets:
   - assetId: smf-16-everseasonal
 
 ---
 assetId: smf-16-everseasonal
-version: "1.0.2"
+version: "1.0.3"
 lastModified: "2024-12-21T:21:40:00Z"
 url: https://community.simtropolis.com/files/file/123-file/?do=download&r=456
 `);
@@ -54,12 +53,12 @@ let result = {
         'src/yaml/smf-16/everseasonal.yaml',
       ],
     },
-    {
-      id: 'jasoncw:collection',
-      files: [
-        'src/yaml/jasoncw/collection.yaml',
-      ],
-    },
+    // {
+    //   id: 'jasoncw:collection',
+    //   files: [
+    //     'src/yaml/jasoncw/collection.yaml',
+    //   ],
+    // },
   ],
 };
 core.setOutput('result', JSON.stringify(result));
