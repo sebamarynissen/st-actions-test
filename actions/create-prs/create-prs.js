@@ -43,6 +43,7 @@ await git.reset({ '--hard': true });
 
 // Fetch all open PRs from GitHub so that we can figure out which files are 
 // updates of existing, open PRs.
+console.log(github.context);
 let spinner = ora('Fetching open pull requests from GitHub').start();
 const { data: prs } = await octokit.rest.pulls.list({
 	...github.context,
