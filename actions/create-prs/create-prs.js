@@ -47,7 +47,7 @@ await git.reset({ '--hard': true });
 // updates of existing, open PRs.
 let spinner = ora('Fetching open pull requests from GitHub').start();
 const { data: prs } = await octokit.rest.pulls.list({
-	...github.context,
+	...context.repo,
 	state: 'open',
 });
 spinner.succeed();
@@ -101,7 +101,7 @@ async function createPr(pkg, prs) {
 	if (!pr) {
 		let spinner = ora('Creating new PR on GitHub').start();
 		({ data: pr } = await octokit.rest.pulls.create({
-			...context.github,
+			...context.repo,
 			base: 'main',
 			title: result.title,
 			head: result.branch,
@@ -111,7 +111,7 @@ async function createPr(pkg, prs) {
 
 		spinner = ora('Adding labels').start();
 		octokit.rest.issues.addLabels({
-			...context.github,
+			...context.repo,
 			issue_number: pr.number,
 			labels: ['package'],
 		});
