@@ -46,9 +46,6 @@ for (let pkg of result.packages) {
 await git.reset({ '--hard': true });
 await git.clean('f', { '-d': true });
 
-console.log('logging git status');
-console.log(await git.status());
-
 // Fetch all open PRs from GitHub so that we can figure out which files are 
 // updates of existing, open PRs.
 let spinner = ora('Fetching open pull requests from GitHub').start();
@@ -64,7 +61,7 @@ for (let pkg of result.packages) {
 
 	// Once the PR has been updated, we'll run the linting script.
 	let result = cp.spawnSync('python', ['lint/src/lint.py', 'src/yaml']);
-	console.log(result);
+	console.log(result.stdout+'');
 
 }
 
