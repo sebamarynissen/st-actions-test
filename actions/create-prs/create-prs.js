@@ -5,6 +5,7 @@ import ora from 'ora';
 import core from '@actions/core';
 import github from '@actions/github';
 import { simpleGit } from 'simple-git';
+console.log(github);
 
 // Setup our git client & octokit.
 const cwd = process.env.GITHUB_WORKSPACE ?? process.env.cwd();
