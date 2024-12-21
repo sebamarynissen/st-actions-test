@@ -6,6 +6,10 @@ subfolder: 150-mods
 info:
   summary: Everseasonal
 
+dependencies:
+  - memo:submenus-ddl
+  - doesnt:exist
+
 assets:
   - assetId: smf-16-everseasonal
 
