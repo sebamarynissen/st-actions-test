@@ -184,6 +184,8 @@ async function createPr(pkg, prs) {
 		cwd: process.env.GITHUB_WORKSPACE,
 	});
 	console.log(result);
+	console.log(result.stdout+'');
+	console.log(result.stderr+'');
 	if (result.status === 0) {
 		await octokit.rest.repos.createCommitStatus({
 			...context.repo,
@@ -207,10 +209,11 @@ async function createPr(pkg, prs) {
 		});
 
 		// Make a comment in the PR with the linting output.
+		let message = String(result.stdout) || String(result.stderr);
 		await octokit.rest.issues.createComment({
 			...context.repo,
 			issue_number: pr.number,
-			body: `⚠️ There is an issue with the metadata for this package:\n\n\`\`\`${result.stdout}\n\`\`\``,
+			body: `⚠️ There is an issue with the metadata for this package:\n\n\`\`\`${message}\n\`\`\``,
 		});
 
 	}
