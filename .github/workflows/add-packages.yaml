@@ -1,0 +1,29 @@
+name: Fetch
+
+on:
+  workflow_dispatch: #
+
+jobs:
+  add-packages:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    # env:
+    #   GITHUB_OWNER: sebamarynissen
+    #   GITHUB_REPO: st-actions-test
+    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - name: Fetch updated packages from Simtropolis
+        id: fetch
+        uses: ./actions/fetch
+      - name: Create & update PRs
+        id: create-prs
+        uses: ./actions/create-prs
+        with:
+          fetch-result: ${{ steps.fetch.outputs.result }}

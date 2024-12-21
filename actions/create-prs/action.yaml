@@ -1,0 +1,6 @@
+name: create-prs
+description: Creates the relevant PRs
+
+runs:
+  using: 'node20'
+  main: 'create-prs.js'
