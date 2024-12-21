@@ -5,11 +5,11 @@ import ora from 'ora';
 import core from '@actions/core';
 import github from '@actions/github';
 import { simpleGit } from 'simple-git';
-console.log(github);
 
 // Setup our git client & octokit.
 const cwd = process.env.GITHUB_WORKSPACE ?? process.env.cwd();
 const git = simpleGit(simpleGit);
+const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 
 // First of all we will create a new file called `LAST_RUN` where we'll commit 
 // the timestamp of the last run.
@@ -44,7 +44,7 @@ await git.reset({ '--hard': true });
 // Fetch all open PRs from GitHub so that we can figure out which files are 
 // updates of existing, open PRs.
 let spinner = ora('Fetching open pull requests from GitHub').start();
-const { data: prs } = await github.rest.pulls.list({
+const { data: prs } = await octokit.rest.pulls.list({
 	...github.context,
 	state: 'open',
 });
@@ -98,7 +98,7 @@ async function createPr(pkg, prs) {
 	// be handled for us.
 	if (!pr) {
 		let spinner = ora('Creating new PR on GitHub').start();
-		({ data: pr } = await github.rest.pulls.create({
+		({ data: pr } = await octokit.rest.pulls.create({
 			...context.github,
 			base: 'main',
 			title: result.title,
@@ -108,7 +108,7 @@ async function createPr(pkg, prs) {
 		spinner.succeed();
 
 		spinner = ora('Adding labels').start();
-		github.rest.issues.addLabels({
+		octokit.rest.issues.addLabels({
 			...context.github,
 			issue_number: pr.number,
 			labels: ['package'],

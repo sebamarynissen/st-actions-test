@@ -7,10 +7,10 @@ jobs:
   add-packages:
     runs-on: ubuntu-latest
     permissions: write-all
-    # env:
-    #   GITHUB_OWNER: sebamarynissen
-    #   GITHUB_REPO: st-actions-test
-    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      GITHUB_OWNER: sebamarynissen
+      GITHUB_REPO: st-actions-test
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup Git
