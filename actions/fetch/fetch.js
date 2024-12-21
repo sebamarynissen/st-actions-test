@@ -41,8 +41,8 @@ subfolder: 200-residential
 info:
   summary: Jasoncw Collection
 variants:
-  - variant: { jasoncw:collection:mode: on }
-  - variant: { jasoncw:collection:mode: off }
+  - variant: { jasoncw:collection:mode: "on" }
+  - variant: { jasoncw:collection:mode: "off" }
 `);
 
 let result = {
