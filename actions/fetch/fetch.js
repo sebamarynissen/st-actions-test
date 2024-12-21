@@ -20,7 +20,7 @@ info:
   summary: Everseasonal
 
 dependencies:
-  - memo:submenus-dll
+  - memo:submenus-ddl
 
 assets:
   - assetId: smf-16-everseasonal
