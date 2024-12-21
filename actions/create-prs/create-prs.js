@@ -73,6 +73,24 @@ async function createPr(pkg, prs) {
 		let spinner = ora(`Checking out origin/${branch}`);
 		await git.fetch();
 		await git.checkoutBranch(branch, `origin/${branch}`);
+
+		// Compare the main branch with this branch.
+		const { data } = await octokit.rest.repos.compareCommits({
+			...context.repo,
+			base: 'main',
+			head: branch,
+		});
+		if (data.status === 'behind') {
+			let result = await octokit.rest.repos.merge({
+				...context.repo,
+				base: branch,
+				head: 'main',
+			});
+			if (result.status !== 200 && result.status !== 201) {
+				core.error(`Failed to merge main into ${branch}`);
+				return;
+			}
+		}
 		spinner.succeed();
 	} else {
 		let spinner = ora(`Creating new branch ${branch}`);
@@ -175,7 +193,7 @@ async function createPr(pkg, prs) {
 		await octokit.rest.issues.createComment({
 			...context.repo,
 			issue_number: pr.number,
-			body: `There is an issue with the metadata for this package:\n\n\`\`\`${result.stdout}\n\`\`\``,
+			body: `⚠️ There is an issue with the metadata for this package:\n\n\`\`\`${result.stdout}\n\`\`\``,
 		});
 
 	}
