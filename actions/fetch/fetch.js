@@ -12,31 +12,35 @@ async function make(file, contents) {
 }
 
 await make('smf-16/everseasonal.yaml', `
-  group: smf-16
-  name: everseasonal
-  version: "1.0.2"
-  # subfolder: 150-mods
-  info:
-    summary: Everseasonal
+group: smf-16
+name: everseasonal
+version: "1.0.2"
+subfolder: 150-mods
+info:
+  summary: Everseasonal
 
-  assets:
-    - assetId: smf-16-everseasonal
+dependencies:
+  - memo:submenus-ddl
+  - doesnt:exist
 
-  ---
-  assetId: smf-16-everseasonal
-  version: "1.0.2"
-  lastModified: "2024-12-21T:21:40:00Z"
-  url: https://community.simtropolis.com/files/file/123-file/?do=download&r=456
+assets:
+  - assetId: smf-16-everseasonal
+
+---
+assetId: smf-16-everseasonal
+version: "1.0.2"
+lastModified: "2024-12-21T:21:40:00Z"
+url: https://community.simtropolis.com/files/file/123-file/?do=download&r=456
 `);
 
 await make('jasoncw/collection.yaml', `
-  group: jasoncw
-  name: collection
-  version: "1.0.0"
-  subfolder: 200-residential
-  variants:
-    - variant: { jasoncw:collection:mode: on }
-    - variant: { jasoncw:collection:mode: off }
+group: jasoncw
+name: collection
+version: "1.0.0"
+subfolder: 200-residential
+variants:
+  - variant: { jasoncw:collection:mode: on }
+  - variant: { jasoncw:collection:mode: off }
 `);
 
 let result = {
@@ -46,6 +50,12 @@ let result = {
       id: 'smf-16:everseasonal',
       files: [
         'src/yaml/smf-16/everseasonal.yaml',
+      ],
+    },
+    {
+      id: 'jasoncw:collection',
+      files: [
+        'src/yaml/jasoncw/collection.yaml',
       ],
     },
   ],

@@ -151,6 +151,22 @@ async function createPr(pkg, prs) {
 			labels: ['package'],
 		});
 		spinner.succeed();
+	} else {
+
+		// If a PR already exists, then update it.
+		if (pr.title !== title) {
+			await octokit.rest.pulls.update({
+				...context.repo,
+				pull_number: pr.number,
+				title,
+			});
+		}
+		await octokit.rest.issues.createComment({
+			...context.repo,
+			issue_number: pr.number,
+			body,
+		});
+
 	}
 
 	// Before we start the linting, let's create a commit status of "pending".
