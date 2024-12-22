@@ -61,4 +61,10 @@ let result = {
     // },
   ],
 };
+let hasNewContent = result.packages.length > 0;
 core.setOutput('result', JSON.stringify(result));
+core.setOutput('has-new-content', hasNewContent);
+
+if (!hasNewContent) {
+  core.notice('No new content was found.');
+}

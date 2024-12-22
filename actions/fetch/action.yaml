@@ -4,6 +4,9 @@ description: Fetches files from the STEX
 outputs:
   result:
     description: The result of a fetch operation on Simtropolis
+  has-new-content:
+    type: boolean
+    description: Whether new content was found and metadata was generated. If false, you can exit the action early.
 
 runs:
   using: 'node20'
