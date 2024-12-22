@@ -36,4 +36,3 @@ jobs:
         uses: ./actions/create-prs
         with:
           fetch-result: ${{ steps.fetch.outputs.result }}
-a
