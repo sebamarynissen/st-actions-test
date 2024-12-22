@@ -47,6 +47,12 @@ variants:
 let result = {
   timestamp: new Date().toISOString(),
   packages: [
+    {
+      id: 'aaron-graham:gracie-manor',
+      files: [
+        'src/yaml/aaron-graham/gracie-manor.yaml',
+      ],
+    },
     // {
     //   id: 'smf-16:everseasonal',
     //   files: [
