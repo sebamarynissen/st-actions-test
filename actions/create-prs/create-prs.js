@@ -180,13 +180,11 @@ async function createPr(pkg, prs) {
 	});
 
 	// Once the PR has been updated, we'll run the linting script.
-	let result = cp.spawnSync('python', ['lint/src/lint.py', 'src/yaml'], {
+	let result = cp.spawnSync('sc4pac-lint', ['src/yaml'], {
 		cwd: process.env.GITHUB_WORKSPACE,
 	});
-	console.log(result);
-	console.log(result.stdout+'');
-	console.log(result.stderr+'');
 	if (result.status === 0) {
+		console.log(result.stdout+'');
 		await octokit.rest.repos.createCommitStatus({
 			...context.repo,
 			sha,

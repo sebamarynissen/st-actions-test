@@ -16,15 +16,5 @@ runs:
       rm -f sc4pac-latest.zip
       sudo ln -s /usr/local/lib/sc4pac/sc4pac /usr/local/bin/sc4pac
       echo "Installed sc4pac version: $(sc4pac --version)"
-  - name: Set up Python
-    uses: actions/setup-python@v5
-    with:
-      python-version: '3.x'
-  - name: Install dependencies
-    shell: bash
-    run: python -m pip install --upgrade PyYAML jsonschema
-  - name: Get lint.py
-    uses: actions/checkout@v4
-    with:
-      repository: memo33/sc4pac-actions
-      path: lint
+  - name: Set up linter
+    uses: memo33/sc4pac-actions/actions/setup-lint@main
