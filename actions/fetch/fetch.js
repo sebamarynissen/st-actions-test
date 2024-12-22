@@ -47,12 +47,12 @@ variants:
 let result = {
   timestamp: new Date().toISOString(),
   packages: [
-    {
-      id: 'smf-16:everseasonal',
-      files: [
-        'src/yaml/smf-16/everseasonal.yaml',
-      ],
-    },
+    // {
+    //   id: 'smf-16:everseasonal',
+    //   files: [
+    //     'src/yaml/smf-16/everseasonal.yaml',
+    //   ],
+    // },
     // {
     //   id: 'jasoncw:collection',
     //   files: [
