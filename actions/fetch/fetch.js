@@ -3,9 +3,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import core from '@actions/core';
 
-const requireMetadata = core.getInput('require-metadata');
-console.log({ requireMetadata });
-
 const cwd = process.env.GITHUB_WORKSPACE ?? process.cwd();
 
 async function make(file, contents) {
@@ -50,12 +47,12 @@ variants:
 let result = {
   timestamp: new Date().toISOString(),
   packages: [
-    // {
-    //   id: 'aaron-graham:gracie-manor',
-    //   files: [
-    //     'src/yaml/aaron-graham/gracie-manor.yaml',
-    //   ],
-    // },
+    {
+      id: 'aaron-graham:gracie-manor',
+      files: [
+        'src/yaml/aaron-graham/gracie-manor.yaml',
+      ],
+    },
     // {
     //   id: 'smf-16:everseasonal',
     //   files: [
