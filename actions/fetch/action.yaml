@@ -1,6 +1,11 @@
 name: fetch
 description: Fetches files from the STEX
 
+inputs:
+  require-metadata:
+    type: boolean
+    default: true
+
 outputs:
   result:
     description: The result of a fetch operation on Simtropolis
