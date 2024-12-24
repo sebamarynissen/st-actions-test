@@ -11,7 +11,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22.11
-      - run: npm ci
-      - uses: ./actions/vars
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: gh variable get LAST_RUN
