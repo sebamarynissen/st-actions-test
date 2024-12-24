@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
