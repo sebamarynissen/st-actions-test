@@ -1,0 +1,6 @@
+name: vars
+description: Updates repository variables
+
+runs:
+  using: 'node20'
+  main: 'vars.js'
