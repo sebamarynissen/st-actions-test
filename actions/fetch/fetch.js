@@ -20,7 +20,7 @@ info:
   summary: Everseasonal
   description: |-
     Hello world, how are you?
-  author: Hello
+author: Hello
 
 dependencies:
   - memo:submenus-dll
@@ -64,6 +64,7 @@ let result = {
       additions: [
         'src/yaml/smf-16/everseasonal.yaml',
       ],
+      error: 'You are not authorized to publish under this group name!',
     },
     // {
     //   id: 'jasoncw:collection',
