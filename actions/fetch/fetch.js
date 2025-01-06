@@ -68,7 +68,8 @@ let result = {
   ],
 };
 let hasNewContent = result.packages.length > 0;
-core.setOutput('result', JSON.stringify(result));
+core.setOutput('packages', JSON.stringify(result.packages));
+core.setOutput('timestamp', JSON.stringify(result.timestamp));
 core.setOutput('has-new-content', hasNewContent);
 
 if (!hasNewContent) {

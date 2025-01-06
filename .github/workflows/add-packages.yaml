@@ -27,12 +27,12 @@ jobs:
       - name: Fetch updated packages from Simtropolis
         id: fetch
         uses: ./actions/fetch
-      - name: Setup sc4pac
+      - name: Setup linter
         if: steps.fetch.outputs.has-new-content == 'true'
-        uses: ./actions/setup-sc4pac
+        uses: memo33/sc4pac-actions/actions/setup-lint@main
       - name: Create & update PRs
-        if: steps.fetch.outputs.has-new-content == 'true'
         id: create-prs
         uses: ./actions/create-prs
         with:
-          fetch-result: ${{ steps.fetch.outputs.result }}
+          packages: ${{ steps.fetch.outputs.packages }}
+          timestamp: ${{ steps.fetch.outputs.timestamp }}
