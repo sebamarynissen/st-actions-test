@@ -5,6 +5,9 @@ version: "1.0.3"
 subfolder: 150-mods
 info:
   summary: Everseasonal
+  description: |-
+    Hello world, how are you?
+  author: Hello
 
 dependencies:
   - memo:submenus-dll
