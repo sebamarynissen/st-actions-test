@@ -18,6 +18,7 @@ version: "1.0.3"
 subfolder: 150-mods
 info:
   summary: Everseasonal
+author: Hello
 
 dependencies:
   - memo:submenus-dll
@@ -47,21 +48,21 @@ variants:
 let result = {
   // timestamp: new Date().toISOString(),
   packages: [
-    {
-      id: 'aaron-graham:gracie-manor',
-      branchId: '423',
-      fileId: '423',
-      additions: [
-        'src/yaml/aaron-graham/gracie-manor.yaml',
-      ],
-      githubUsername: 'sebamarynissen',
-    },
     // {
-    //   id: 'smf-16:everseasonal',
-    //   files: [
-    //     'src/yaml/smf-16/everseasonal.yaml',
+    //   id: 'aaron-graham:gracie-manor',
+    //   branchId: '423',
+    //   fileId: '423',
+    //   additions: [
+    //     'src/yaml/aaron-graham/gracie-manor.yaml',
     //   ],
+    //   githubUsername: 'sebamarynissen',
     // },
+    {
+      id: 'smf-16:everseasonal',
+      files: [
+        'src/yaml/smf-16/everseasonal.yaml',
+      ],
+    },
     // {
     //   id: 'jasoncw:collection',
     //   files: [
