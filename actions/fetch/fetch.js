@@ -65,6 +65,7 @@ let result = {
         'src/yaml/smf-16/everseasonal.yaml',
       ],
       error: 'You are not authorized to publish under this group name!',
+      githubUsername: 'sebamarynissen',
     },
     // {
     //   id: 'jasoncw:collection',

@@ -236,7 +236,7 @@ async function createPr(pkg, prs) {
 		});
 
 		// Compile the message from all the errors.
-		let message = errors.map(error => error.message).join('\n');
+		let message = errors.map(error => error.message).join('\n\n');
 
 		// If we know the GitHub username of the user that created this package, 
 		// tag them in the body.
