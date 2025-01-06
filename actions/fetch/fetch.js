@@ -59,13 +59,13 @@ let result = {
     // },
     {
       id: 'smf-16:everseasonal',
-      files: [
+      additions: [
         'src/yaml/smf-16/everseasonal.yaml',
       ],
     },
     // {
     //   id: 'jasoncw:collection',
-    //   files: [
+    //   additions: [
     //     'src/yaml/jasoncw/collection.yaml',
     //   ],
     // },
