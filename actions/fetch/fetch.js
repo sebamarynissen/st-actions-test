@@ -45,7 +45,7 @@ variants:
 `);
 
 let result = {
-  timestamp: new Date().toISOString(),
+  // timestamp: new Date().toISOString(),
   packages: [
     {
       id: 'aaron-graham:gracie-manor',
