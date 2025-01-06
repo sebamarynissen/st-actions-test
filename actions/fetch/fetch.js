@@ -20,7 +20,7 @@ info:
   summary: Everseasonal
   description: |-
     Hello world, how are you?
-author: Hello
+  author: Hello
 
 dependencies:
   - memo:submenus-dll
