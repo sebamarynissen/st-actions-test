@@ -49,9 +49,12 @@ let result = {
   packages: [
     {
       id: 'aaron-graham:gracie-manor',
-      files: [
+      branchId: '423',
+      fileId: '423',
+      additions: [
         'src/yaml/aaron-graham/gracie-manor.yaml',
       ],
+      githubUsername: 'sebamarynissen',
     },
     // {
     //   id: 'smf-16:everseasonal',
