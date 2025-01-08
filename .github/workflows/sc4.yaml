@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: lts
+          node-version: 22
       - run: npm i -g sc4
       - run: sc4 dbpf extract --help
