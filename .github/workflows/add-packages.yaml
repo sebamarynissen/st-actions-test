@@ -2,9 +2,6 @@ name: Add packages
 
 on:
   workflow_dispatch: #
-  push:
-    branches:
-      - main
 
 jobs:
   add-packages:
