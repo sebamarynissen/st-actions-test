@@ -1,0 +1,10 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+      - run: npm i -g sc4
+      - run: npm sc4 dbpf extract --help
