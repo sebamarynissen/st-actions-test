@@ -9,5 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v4
+        with:
+          node-version: lts
       - run: npm i -g sc4
       - run: sc4 dbpf extract --help
