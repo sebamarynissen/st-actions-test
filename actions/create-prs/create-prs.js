@@ -5,7 +5,7 @@ import path from 'node:path';
 import cp from 'node:child_process';
 import { Glob } from 'glob';
 import ora from 'ora';
-import core, { summary } from '@actions/core';
+import core from '@actions/core';
 import github from '@actions/github';
 import { simpleGit } from 'simple-git';
 import { parseAllDocuments } from 'yaml';
