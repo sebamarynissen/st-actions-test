@@ -5,6 +5,8 @@ version: "1.0.0"
 subfolder: 200-residential
 info:
   summary: Jasoncw Collection
+dependencies:
+  - memo:submenu-dll
 variants:
   - variant: { jasoncw:collection:mode: "on" }
   - variant: { jasoncw:collection:mode: "off" }
