@@ -61,21 +61,26 @@ let result = {
     //   ],
     //   githubUsername: 'sebamarynissen',
     // },
-    // {
-    //   id: 'smf-16:everseasonal',
-    //   additions: [
-    //     'src/yaml/smf-16/everseasonal.yaml',
-    //   ],
-    //   githubUsername: 'sebamarynissen',
-    //   message: {
-    //     to: 'smf_16',
-    //   },
-    // },
+    {
+      id: 'smf-16:everseasonal',
+      branchId: '16',
+      additions: [
+        'src/yaml/smf-16/everseasonal.yaml',
+      ],
+      githubUsername: 'sebamarynissen',
+      message: {
+        to: 'smf_16',
+      },
+    },
     {
       id: 'jasoncw:collection',
+      branchId: '123',
       additions: [
         'src/yaml/jasoncw/collection.yaml',
       ],
+      message: {
+        to: 'jasoncw',
+      },
     },
   ],
 };
