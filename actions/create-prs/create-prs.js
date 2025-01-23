@@ -5,7 +5,7 @@ import path from 'node:path';
 import cp from 'node:child_process';
 import { Glob } from 'glob';
 import ora from 'ora';
-import core from '@actions/core';
+import core, { summary } from '@actions/core';
 import github from '@actions/github';
 import { simpleGit } from 'simple-git';
 import { parseAllDocuments } from 'yaml';
@@ -248,8 +248,8 @@ async function createPr(pkg, prs) {
 				id: pkg.id,
 				summary: main.info.summary,
 				metadata_url: new URL(
-					`/${context.repo.owner}/${context.repo.repo}/tree/main/${file}`,
-					'https://github.com',
+					`./tree/main/${file}`,
+					`https://github.com/${context.repo.owner}/${context.repo.repo}/`,
 				),
 			});
 			dm = {
@@ -285,6 +285,33 @@ async function createPr(pkg, prs) {
 			issue_number: pr.number,
 			body,
 		});
+
+		// Send a DM that the package failed to be added.
+		if (pkg.message) {
+			let repo = `https://github.com/${context.repo.owner}/${context.repo.repo}/`;
+			let template = await fs.promises.readFile(
+				new URL('./package-publish-failed.md', import.meta.url),
+			);
+			let [file] = pkg.additions;
+			dm = {
+				to: pkg.message.to,
+				subject: '⚠️ Package publish failed',
+				body: Mustache.render(String(template), {
+					author: main.info.author,
+					id: pkg.id,
+					summary: main.info.summary,
+					errors: message,
+					metadata_url: new URL(
+						`./tree/${branch}/${file}`,
+						repo,
+					),
+					pr_url: new URL(
+						`./pulls/${pr.number}`,
+						repo,
+					),
+				}),
+			};
+		}
 
 	}
 
