@@ -242,13 +242,13 @@ async function createPr(pkg, prs) {
 			let template = await fs.promises.readFile(
 				new URL('./package-published.md', import.meta.url),
 			);
-			let [path] = pkg.additions;
+			let [file] = pkg.additions;
 			let body = Mustache.render(String(template), {
 				author: main.info.author,
 				id: pkg.id,
 				summary: main.info.summary,
 				metadata_url: new URL(
-					`/${context.repo.owner}/${context.repo.repo}/tree/main/${path}`,
+					`/${context.repo.owner}/${context.repo.repo}/tree/main/${file}`,
 					'https://github.com',
 				),
 			});
