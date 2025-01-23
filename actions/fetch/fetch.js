@@ -42,6 +42,8 @@ version: "1.0.0"
 subfolder: 200-residential
 info:
   summary: Jasoncw Collection
+dependencies:
+  - memo:submenu-dll
 variants:
   - variant: { jasoncw:collection:mode: "on" }
   - variant: { jasoncw:collection:mode: "off" }
@@ -69,12 +71,12 @@ let result = {
         to: 'smf_16',
       },
     },
-    // {
-    //   id: 'jasoncw:collection',
-    //   additions: [
-    //     'src/yaml/jasoncw/collection.yaml',
-    //   ],
-    // },
+    {
+      id: 'jasoncw:collection',
+      additions: [
+        'src/yaml/jasoncw/collection.yaml',
+      ],
+    },
   ],
 };
 let hasNewContent = result.packages.length > 0;
