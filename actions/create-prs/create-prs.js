@@ -248,7 +248,7 @@ async function createPr(pkg, prs) {
 				id: pkg.id,
 				summary: main.info.summary,
 				metadata_url: new URL(
-					`./tree/main/${file}`,
+					`./tree/main/${file.name}`,
 					`https://github.com/${context.repo.owner}/${context.repo.repo}/`,
 				),
 			});
@@ -302,7 +302,7 @@ async function createPr(pkg, prs) {
 					summary: main.info.summary,
 					errors: message,
 					metadata_url: new URL(
-						`./tree/${branch}/${file}`,
+						`./tree/${branch}/${file.name}`,
 						repo,
 					),
 					pr_url: new URL(

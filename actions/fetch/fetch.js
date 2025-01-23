@@ -43,7 +43,7 @@ subfolder: 200-residential
 info:
   summary: Jasoncw Collection
 dependencies:
-  - memo:submenu-dll
+  - memo:submenus-dll
 variants:
   - variant: { jasoncw:collection:mode: "on" }
   - variant: { jasoncw:collection:mode: "off" }
