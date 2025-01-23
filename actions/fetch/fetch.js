@@ -65,6 +65,9 @@ let result = {
         'src/yaml/smf-16/everseasonal.yaml',
       ],
       githubUsername: 'sebamarynissen',
+      message: {
+        to: 'smf_16',
+      },
     },
     // {
     //   id: 'jasoncw:collection',

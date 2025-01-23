@@ -9,6 +9,7 @@ import core from '@actions/core';
 import github from '@actions/github';
 import { simpleGit } from 'simple-git';
 import { parseAllDocuments } from 'yaml';
+import Mustache from 'mustache';
 
 // Setup our git client & octokit.
 const cwd = process.env.GITHUB_WORKSPACE ?? process.cwd();
@@ -50,9 +51,14 @@ if (packages.length > 0) {
 	spinner.succeed();
 
 	// Create the PRs and update the branches for each result.
+	let messages = [];
 	for (let pkg of packages) {
-		await createPr(pkg, prs);
+		let result = await createPr(pkg, prs);
+		if (result.message) {
+			messages.push(result.message);
+		}
 	}
+	core.setOutput('messages', JSON.stringify(messages));
 
 }
 
@@ -75,6 +81,7 @@ if (timestamp) {
 // # createPr(pkg)
 // Creates a new PR for the given package, or updates it if it already exists.
 async function createPr(pkg, prs) {
+	let dm;
 	let branch = `package/${pkg.branchId}`;
 	let pr = prs.find(pr => pr.head.ref === branch);
 
@@ -226,6 +233,26 @@ async function createPr(pkg, prs) {
 			...context.repo,
 			pull_number: pr.number,
 		});
+
+		// If the PR was merged, we'll compose a DM for this as well. Note: the 
+		// message body should be written in markdown. The actual implementation 
+		// of sending DMs can hence decide whether the markdown should be 
+		// converted to html or not!
+		if (pkg.message) {
+			let template = await fs.promises.readFile(
+				new URL('./package-published.md', import.meta.url),
+			);
+			let body = Mustache.render(String(template), {
+				author: main.info.author,
+				id: pkg.id,
+				summary: main.info.summary,
+			});
+			dm = {
+				subject: 'Package published',
+				body,
+			};
+		}
+
 	} else {
 		await octokit.rest.repos.createCommitStatus({
 			...context.repo,
@@ -265,6 +292,7 @@ async function createPr(pkg, prs) {
 		ref: `refs/pull/${pr.number}/merge`,
 		number: pr.number,
 		sha,
+		message: dm,
 	};
 
 }

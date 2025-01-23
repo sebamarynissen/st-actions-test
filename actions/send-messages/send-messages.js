@@ -1,5 +1,4 @@
 // # send-messages.js
-
 import core from '@actions/core';
 const messages = core.getInput('messages');
 

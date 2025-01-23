@@ -40,4 +40,4 @@ jobs:
       - name: Send DMs
         uses: ./actions/send-messages
         with:
-          messages: '[{"to":"someone","subject":"Hello","body":"foo"}]'
+          messages: ${{ steps.create-prs.outputs.messages }}
