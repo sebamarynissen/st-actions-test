@@ -2,6 +2,7 @@ name: Add packages
 
 on:
   workflow_dispatch: #
+  push: #
 
 jobs:
   add-packages:
@@ -36,3 +37,7 @@ jobs:
         with:
           packages: ${{ steps.fetch.outputs.packages }}
           timestamp: ${{ steps.fetch.outputs.timestamp }}
+      - name: Send DMs
+        uses: ./actions/send-messages
+        with:
+          messages: '[{"to":"someone","subject":"Hello","body":"foo"}]'
