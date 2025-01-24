@@ -23,7 +23,7 @@ info:
   author: smf_16
 
 dependencies:
-  - memo:submenu-dll
+  - memo:submenus-dll
 
 assets:
   - assetId: smf-16-everseasonal
