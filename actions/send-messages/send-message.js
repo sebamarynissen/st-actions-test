@@ -3,6 +3,14 @@ import FormData from 'form-data';
 import parseCookie from 'set-cookie-parser';
 import { marked } from 'marked';
 
+marked.use({
+	renderer: {
+		code({ text }) {
+			return `<pre class="ipsCode">${text}</pre>`;
+		},
+	},
+});
+
 export default async function sendMessage({ to, subject, body }) {
 	if (!process.env.SC4PAC_SIMTROPOLIS_COOKIE) {
 		throw new Error(`Please set the SC4PAC_SIMTROPOLIS_COOKIE environment variable to sened a DM!`);
@@ -44,7 +52,8 @@ export default async function sendMessage({ to, subject, body }) {
 	}
 	formData.append('messenger_to', to);
 	formData.append('messenger_title', subject);
-	formData.append('messenger_content', marked(body));
+	let md = marked(body);
+	formData.append('messenger_content', md);
 
 	let result = await fetch(form.getAttribute('action'), {
 		method: 'POST',
