@@ -77,6 +77,8 @@ export default async function sendMessage({ to, subject, body }) {
 	// If the response was redirected, then the message was sent successfully. 
 	// Otherwise it failed - most likely due to rate limiting!
 	if (!result.redirected) {
+		let text = await result.text();
+		console.log(text);
 		throw new Error(
 			'Simtropolis did not return a redirect status, indicating that the DM could not be sent, likely due to rate limiting.',
 		);
