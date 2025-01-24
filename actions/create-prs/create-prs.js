@@ -244,7 +244,7 @@ async function createPr(pkg, prs) {
 		// converted to html or not!
 		if (pkg.message) {
 			let template = await fs.promises.readFile(
-				new URL('./package-published.md', import.meta.url),
+				path.join(import.meta.dirname, './package-published.md'),
 			);
 			let [file] = pkg.additions;
 			let body = Mustache.render(String(template), {
@@ -296,7 +296,7 @@ async function createPr(pkg, prs) {
 		if (pkg.message) {
 			let repo = `https://github.com/${context.repo.owner}/${context.repo.repo}/`;
 			let template = await fs.promises.readFile(
-				new URL('./package-publish-failed.md', import.meta.url),
+				path.join(import.meta.dirname, './package-publish-failed.md'),
 			);
 			let [file] = pkg.additions;
 			console.log('The template is:', String(template));
