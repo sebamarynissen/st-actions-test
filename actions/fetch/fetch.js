@@ -23,7 +23,7 @@ info:
   author: Hello
 
 dependencies:
-  - memo:submenus-dll
+  - memo:submenu-dll
 
 assets:
   - assetId: smf-16-everseasonal
@@ -35,32 +35,9 @@ lastModified: "2024-12-21T:21:40:00Z"
 url: https://community.simtropolis.com/files/file/123-file/?do=download&r=456
 `);
 
-await make('jasoncw/collection.yaml', `
-group: jasoncw
-name: collection
-version: "1.0.0"
-subfolder: 200-residential
-info:
-  summary: Jasoncw Collection
-dependencies:
-  - memo:submenu-dll
-variants:
-  - variant: { jasoncw:collection:mode: "on" }
-  - variant: { jasoncw:collection:mode: "off" }
-`);
-
 let result = {
   // timestamp: new Date().toISOString(),
   packages: [
-    // {
-    //   id: 'aaron-graham:gracie-manor',
-    //   branchId: '423',
-    //   fileId: '423',
-    //   additions: [
-    //     'src/yaml/aaron-graham/gracie-manor.yaml',
-    //   ],
-    //   githubUsername: 'sebamarynissen',
-    // },
     {
       id: 'smf-16:everseasonal',
       branchId: '16',
@@ -72,16 +49,6 @@ let result = {
         to: 'smf_16',
       },
     },
-    // {
-    //   id: 'jasoncw:collection',
-    //   branchId: '123',
-    //   additions: [
-    //     'src/yaml/jasoncw/collection.yaml',
-    //   ],
-    //   message: {
-    //     to: 'smf-16',
-    //   },
-    // },
   ],
 };
 let hasNewContent = result.packages.length > 0;
