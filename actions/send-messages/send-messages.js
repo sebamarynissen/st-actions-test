@@ -7,6 +7,6 @@ for (let message of messages) {
 	try {
 		await sendMessage(message);
 	} catch (e) {
-		core.warn(`Failed to send dm to ${message.to}: ${e.message}`);
+		core.warning(`Failed to send dm to ${message.to}: ${e.message}`);
 	}
 }
