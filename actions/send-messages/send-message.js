@@ -3,6 +3,9 @@ import FormData from 'form-data';
 import parseCookie from 'set-cookie-parser';
 
 export default async function sendMessage({ to, subject, body }) {
+	if (!process.env.SC4PAC_SIMTROPOLIS_COOKIE) {
+		throw new Error(`Please set the SC4PAC_SIMTROPOLIS_COOKIE environment variable to sened a DM!`);
+	}
 	const auth = process.env.SC4PAC_SIMTROPOLIS_COOKIE
 		.split(';')
 		.map(cookie => cookie.trim())

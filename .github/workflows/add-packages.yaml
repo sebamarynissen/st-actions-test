@@ -15,6 +15,7 @@ jobs:
       GITHUB_OWNER: sebamarynissen
       GITHUB_REPO: st-actions-test
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SC4PAC_SIMTROPOLIS_COOKIE: ${{ secrets.SC4PAC_SIMTROPOLIS_COOKIE }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup Git
