@@ -23,7 +23,7 @@ info:
   author: Hello
 
 dependencies:
-  - memo:submenu-dll
+  - memo:submenus-dll
 
 assets:
   - assetId: smf-16-everseasonal
@@ -79,7 +79,7 @@ let result = {
     //     'src/yaml/jasoncw/collection.yaml',
     //   ],
     //   message: {
-    //     to: 'jasoncw',
+    //     to: 'smf-16',
     //   },
     // },
   ],

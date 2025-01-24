@@ -1,5 +1,12 @@
 // # send-messages.js
 import core from '@actions/core';
-const messages = core.getInput('messages');
+import sendMessage from './send-message.js';
+const messages = JSON.parse(core.getInput('messages'));
 
-console.log(JSON.parse(messages));
+for (let message of messages) {
+	try {
+		await sendMessage(message);
+	} catch (e) {
+		core.warn(`Failed to send dm to ${message.to}: ${e.message}`);
+	}
+}
