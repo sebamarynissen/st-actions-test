@@ -17,6 +17,10 @@ const git = simpleGit(simpleGit);
 const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 const { context } = github;
 
+// Get the channel name & url, which we use for compiling the DMs.
+const channelUrl = core.getInput('channel-url');
+const channelName = core.getInput('channel-name') || channelUrl;
+
 // Before we can generate our PRs, we need to make sure the repository is in a 
 // clean state. That's because if we checkout an existing branch, it might 
 // overwrite the changes made by the fetch action, so we first have to figure 
@@ -251,6 +255,8 @@ async function createPr(pkg, prs) {
 					`./tree/main/${file.name}`,
 					`https://github.com/${context.repo.owner}/${context.repo.repo}/`,
 				),
+				channel_url: channelUrl,
+				channel_name: channelName,
 			});
 			dm = {
 				to: pkg.message.to,
@@ -309,6 +315,8 @@ async function createPr(pkg, prs) {
 						`./pulls/${pr.number}`,
 						repo,
 					),
+					channel_url: channelUrl,
+					channel_name: channelName,
 				}),
 			};
 		}

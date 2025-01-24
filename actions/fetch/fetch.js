@@ -23,7 +23,7 @@ info:
   author: Hello
 
 dependencies:
-  - memo:submenus-dll
+  - memo:submenu-dll
 
 assets:
   - assetId: smf-16-everseasonal
@@ -72,16 +72,16 @@ let result = {
         to: 'smf_16',
       },
     },
-    {
-      id: 'jasoncw:collection',
-      branchId: '123',
-      additions: [
-        'src/yaml/jasoncw/collection.yaml',
-      ],
-      message: {
-        to: 'jasoncw',
-      },
-    },
+    // {
+    //   id: 'jasoncw:collection',
+    //   branchId: '123',
+    //   additions: [
+    //     'src/yaml/jasoncw/collection.yaml',
+    //   ],
+    //   message: {
+    //     to: 'jasoncw',
+    //   },
+    // },
   ],
 };
 let hasNewContent = result.packages.length > 0;
