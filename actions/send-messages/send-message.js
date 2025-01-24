@@ -95,7 +95,7 @@ function md5(value = String(Math.random()*1000 | 0)) {
 const getAuthHeaders = (cookies) => ({
 	Cookie: Object.entries({
 		...cookies,
-		ct_checkjs: md5(),
+		ct_checkjs: '72242b45b84b32e3973c393d6c69811e',
 		ct_timezone: 1,
 		ct_fkp_timestamp: Math.floor(Date.now()/1000) - 10,
 		ct_ps_timestamp: Math.floor(Date.now()/1000) - 15,
