@@ -20,10 +20,10 @@ info:
   summary: Everseasonal
   description: |-
     Hello world, how are you?
-  author: Hello
+  author: smf_16
 
 dependencies:
-  - memo:submenus-dll
+  - memo:submenu-dll
 
 assets:
   - assetId: smf-16-everseasonal
