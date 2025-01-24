@@ -61,6 +61,12 @@ export default async function sendMessage({ to, subject, body }) {
 	console.log(md);
 	formData.append('messenger_content', md);
 
+	// Look for the ct_checkjs value in the html.
+	let match = html.match(/["']ct_checkjs["'], ?["'](.*?)["']/);
+	if (match) {
+		cookies.ct_checkjs = match[1];
+	}
+
 	let result = await fetch(form.getAttribute('action'), {
 		method: 'POST',
 		body: formData.getBuffer(),
