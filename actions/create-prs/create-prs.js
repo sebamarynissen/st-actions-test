@@ -312,7 +312,7 @@ async function createPr(pkg, prs) {
 						repo,
 					),
 					pr_url: new URL(
-						`./pulls/${pr.number}`,
+						`./pull/${pr.number}`,
 						repo,
 					),
 					channel_url: channelUrl,

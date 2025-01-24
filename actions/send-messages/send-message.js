@@ -8,8 +8,9 @@ marked.use({
 		code({ text }) {
 			let escaped = text
 				.replaceAll('<', '&lt;')
-				.replaceAll('>', '&gt;');
-			return `<pre class="ipsCode">${escaped}</pre>`;
+				.replaceAll('>', '&gt;')
+				.trim();
+			return `<pre class="ipsCode">\n${escaped}</pre>`;
 		},
 	},
 });
