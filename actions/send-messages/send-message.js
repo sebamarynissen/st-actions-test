@@ -56,6 +56,7 @@ export default async function sendMessage({ to, subject, body }) {
 	formData.append('messenger_to', to);
 	formData.append('messenger_title', subject);
 	let md = marked(body);
+	console.log(md);
 	formData.append('messenger_content', md);
 
 	let result = await fetch(form.getAttribute('action'), {

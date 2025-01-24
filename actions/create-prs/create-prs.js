@@ -299,7 +299,6 @@ async function createPr(pkg, prs) {
 				path.join(import.meta.dirname, './package-publish-failed.md'),
 			);
 			let [file] = pkg.additions;
-			console.log('The template is:', String(template));
 			dm = {
 				to: pkg.message.to,
 				subject: '⚠️ Package publish failed',
