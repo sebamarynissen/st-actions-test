@@ -1,6 +1,7 @@
 import { JSDOM } from 'jsdom';
 import FormData from 'form-data';
 import parseCookie from 'set-cookie-parser';
+import { marked } from 'marked';
 
 export default async function sendMessage({ to, subject, body }) {
 	if (!process.env.SC4PAC_SIMTROPOLIS_COOKIE) {
@@ -43,7 +44,7 @@ export default async function sendMessage({ to, subject, body }) {
 	}
 	formData.append('messenger_to', to);
 	formData.append('messenger_title', subject);
-	formData.append('messenger_content', body);
+	formData.append('messenger_content', marked(body));
 
 	let result = await fetch(form.getAttribute('action'), {
 		method: 'POST',
