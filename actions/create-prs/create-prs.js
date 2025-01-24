@@ -301,7 +301,7 @@ async function createPr(pkg, prs) {
 			let [file] = pkg.additions;
 			dm = {
 				to: pkg.message.to,
-				subject: '⚠️ Package publish failed',
+				subject: 'Package publish failed',
 				body: Mustache.render(String(template), {
 					author: main.info.author,
 					id: pkg.id,
