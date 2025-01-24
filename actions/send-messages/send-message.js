@@ -77,6 +77,7 @@ export default async function sendMessage({ to, subject, body }) {
 	// If the response was redirected, then the message was sent successfully. 
 	// Otherwise it failed - most likely due to rate limiting!
 	if (!result.redirected) {
+		console.log('Status', result.status());
 		let text = await result.text();
 		console.log(text);
 		throw new Error(
@@ -89,7 +90,7 @@ export default async function sendMessage({ to, subject, body }) {
 const getAuthHeaders = (cookies) => ({
 	Cookie: Object.entries({
 		...cookies,
-		ct_checkjs: '20f8b05aba75f1dcfdae1ad4e4ed0aac',
+		ct_checkjs: '72242b45b84b32e3973c393d6c69811e',
 		ct_timezone: 1,
 		ct_fkp_timestamp: Math.floor(Date.now()/1000) - 10,
 		ct_ps_timestamp: Math.floor(Date.now()/1000) - 15,
