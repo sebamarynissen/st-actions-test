@@ -6,7 +6,10 @@ import { marked } from 'marked';
 marked.use({
 	renderer: {
 		code({ text }) {
-			return `<pre class="ipsCode">${text}</pre>`;
+			let escaped = text
+				.replaceAll('<', '&lt;')
+				.replaceAll('>', '&gt;');
+			return `<pre class="ipsCode">${escaped}</pre>`;
 		},
 	},
 });
