@@ -10,7 +10,7 @@ info:
   author: Hello
 
 dependencies:
-  - memo:submenus-dll
+  - memo:submenu-dll
 
 assets:
   - assetId: smf-16-everseasonal
